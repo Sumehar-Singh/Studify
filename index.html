@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/subjects.css">
+    <link rel="stylesheet" href="styles/schedule.css">
+    <link rel="stylesheet" href="styles/tasks.css">
+    <link rel="stylesheet" href="styles/analytics.css">
+    <link rel="stylesheet" href="styles/settings.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Studify</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-target="dashboard">Dashboard</button>
+                <button class="nav-btn" data-target="subjects">Subjects</button>
+                <button class="nav-btn" data-target="schedule">Schedule</button>
+                <button class="nav-btn" data-target="tasks">Tasks</button>
+                <button class="nav-btn" data-target="analytics">Analytics</button>
+                <button class="nav-btn" data-target="settings">Settings</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="page-title">Dashboard</h2>
+
+            </header>
+
+            <div id="app-view" class="content-view">
+
+                <div id="dashboard-view" class="view-section active">
+                    <div class="dashboard-grid">
+
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Total Subjects</p>
+                                <h4 class="stat-number" id="dash-total-subjects">0</h4>
+                            </div>
+                        </div>
+
+
+                        <div class="card stat-card">
+                            <div class="stat-icon"
+                                style="background: rgba(245, 158, 11, 0.1); color: var(--warning-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Pending Tasks</p>
+                                <h4 class="stat-number" id="dash-pending-tasks">0</h4>
+                            </div>
+                        </div>
+
+
+                        <div class="card stat-card">
+                            <div class="stat-icon"
+                                style="background: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Upcoming Deadlines</p>
+                                <h4 class="stat-number" id="dash-upcoming-deadlines">0</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-sections">
+                        <div class="card today-schedule">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                Today's Schedule
+                            </h3>
+                            <div id="dash-today-schedule-list" class="schedule-list animate-stagger">
+                                <p class="empty-state">No classes scheduled for today.</p>
+                            </div>
+                        </div>
+
+                        <div class="card urgent-tasks">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                </svg>
+                                Urgent Tasks
+                            </h3>
+                            <ul id="dash-urgent-tasks-list" class="task-list animate-stagger">
+                                <li class="empty-state">No urgent tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="subjects-view" class="view-section hidden">
+                    <div class="section-header">
+                        <div class="section-info">
+                            <h3>My Courses</h3>
+                            <p class="text-muted">Manage your courses and priorities</p>
+                        </div>
+                        <button id="add-subject-btn" class="btn-primary">+ Add New Subject</button>
+                    </div>
+
+                    <div id="subjects-list" class="subjects-grid animate-stagger">
+                        <div class="empty-state interactive-empty" id="subject-empty-state">
+                            <div class="empty-icon">📚</div>
+                            <h3>Start Your Journey</h3>
+                            <p>Track your subjects, manage assignments, and boost your productivity. Add your first
+                                subject to get started.</p>
+                            <button class="btn-primary">Add Subject</button>
+                        </div>
+                    </div>
+
+
+                    <div id="subject-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <span id="close-subject-modal" class="close-modal">&times;</span>
+                            <h3 id="subject-modal-title">Add Subject</h3>
+                            <form id="subject-form">
+                                <input type="hidden" id="subject-id">
+                                <div class="form-group">
+                                    <label for="subject-name">Subject Name</label>
+                                    <input type="text" id="subject-name" placeholder="e.g. DSA" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject-priority">Priority</label>
+                                    <select id="subject-priority">
+                                        <option value="High">High</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn-primary">Save Subject</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="schedule-view" class="view-section hidden">
+                    <div class="schedule-controls">
+                        <div class="filter-group">
+                            <span class="filter-label">Viewing Schedule:</span>
+                            <select id="schedule-day-filter">
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <button id="clear-schedule-btn" class="btn-danger-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            </svg>
+                            <span>Clear Day</span>
+                        </button>
+                    </div>
+
+                    <div class="schedule-container">
+                        <div class="time-slots-header">
+                            <span>Time</span>
+                            <span>Subject</span>
+                            <span>Action</span>
+                        </div>
+                        <div id="schedule-grid" class="schedule-grid animate-stagger">
+
+                        </div>
+                    </div>
+
+
+                    <div id="schedule-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <span id="close-schedule-modal" class="close-modal">&times;</span>
+                            <h3>Assign Subject</h3>
+                            <p id="selected-time-slot-display"></p>
+                            <form id="schedule-form">
+                                <input type="hidden" id="schedule-time">
+                                <div class="form-group">
+                                    <label for="schedule-subject-select">Select Subject</label>
+                                    <select id="schedule-subject-select" required>
+
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn-primary">Assign</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="tasks-view" class="view-section hidden">
+                    <div class="task-controls">
+                        <div class="task-filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="pending">Pending</button>
+                            <button class="filter-btn" data-filter="completed">Completed</button>
+                        </div>
+                        <button id="add-task-btn" class="btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Add New Task</span>
+                        </button>
+                    </div>
+
+                    <ul id="tasks-list" class="tasks-list animate-stagger">
+
+                    </ul>
+
+
+                    <div id="task-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <span id="close-task-modal" class="close-modal">&times;</span>
+                            <h3>Add New Task</h3>
+                            <form id="task-form">
+                                <div class="form-group">
+                                    <label for="task-title">Task Title</label>
+                                    <input type="text" id="task-title" placeholder="e.g. Chapter 5 Summary" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="task-subject">Subject</label>
+                                    <select id="task-subject" required>
+                                        <!-- Populated via JS -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="task-deadline">Deadline</label>
+                                    <input type="date" id="task-deadline" required>
+                                </div>
+                                <button type="submit" class="btn-primary">Save Task</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="analytics-view" class="view-section hidden">
+                    <div class="analytics-header">
+                        <h3>Performance Overview</h3>
+                        <p class="text-muted">Track your productivity and progress</p>
+                    </div>
+
+
+                    <div class="stats-overview animate-stagger">
+                        <div class="card stat-card">
+                            <div class="stat-icon"
+                                style="background: rgba(99, 102, 241, 0.1); color: var(--primary-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Completion Rate</p>
+                                <h4 class="stat-value" id="ana-rate-display">0%</h4>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon"
+                                style="background: rgba(16, 185, 129, 0.1); color: var(--secondary-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Completed Tasks</p>
+                                <h4 class="stat-value" id="ana-completed-display">0</h4>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon"
+                                style="background: rgba(245, 158, 11, 0.1); color: var(--warning-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Pending Tasks</p>
+                                <h4 class="stat-value" id="ana-pending-display">0</h4>
+                            </div>
+                        </div>
+
+                        <div class="card stat-card">
+                            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <p class="stat-label">Total Subjects</p>
+                                <h4 class="stat-value" id="ana-subjects-display">0</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid animate-stagger" style="animation-delay: 0.1s;">
+
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Task Progress</h3>
+                            </div>
+                            <div class="chart-body">
+                                <div id="task-completion-chart" class="pie-chart">
+                                    <div class="chart-center-text">
+                                        <span id="chart-center-rate">0%</span>
+                                        <small>Done</small>
+                                    </div>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item"><span class="dot"
+                                            style="background: var(--secondary-color)"></span> Completed</div>
+                                    <div class="legend-item"><span class="dot"
+                                            style="background: var(--warning-color)"></span> Pending</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Upcoming Deadlines</h3>
+                            </div>
+                            <div class="chart-body">
+                                <div id="subject-performance-chart" class="bar-chart-container">
+                                    <p class="empty-chart-msg">No upcoming deadlines!</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settings-view" class="view-section hidden">
+                    <div class="settings-container animate-stagger">
+
+
+                        <div class="card settings-card">
+                            <div class="settings-header">
+                                <div class="settings-icon">👨‍💻</div>
+                                <div class="settings-title">
+                                    <h3>About Developer</h3>
+                                    <p>The mind behind the code</p>
+                                </div>
+                            </div>
+                            <div class="profile-section">
+                                <img src="Myphoto.png" class="profile-avatar" alt="Profile Photo">
+                                <h4 class="profile-name">Sumehar Singh Grewal</h4>
+                                <p class="profile-role">Full Stack Developer</p>
+                                <p class="profile-bio">
+                                    Passionate about building intuitive and beautiful user experiences.
+                                    Creator of the <strong>Study Smart Planner</strong>, designed to help students
+                                    manage their academic life effectively.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="card settings-card">
+                            <div class="settings-header">
+                                <div class="settings-icon">⚡</div>
+                                <div class="settings-title">
+                                    <h3>App Info</h3>
+                                    <p>Under the hood</p>
+                                </div>
+                            </div>
+                            <div class="profile-section" style="align-items: flex-start; text-align: left;">
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-main);">Study Smart Planner v1.0
+                                </h4>
+                                <p class="profile-bio" style="margin-bottom: 1.5rem;">
+                                    A modern, responsive web application for managing subjects, tasks, and schedules.
+                                    Built with performance and aesthetics in mind.
+                                </p>
+
+                                <h5 style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Tech Stack:
+                                </h5>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3 (Variables, Flexbox, Grid)</span>
+                                    <span class="tech-tag">Vanilla JavaScript (ES6+)</span>
+                                    <span class="tech-tag">LocalStorage API</span>
+                                    <span class="tech-tag">Glassmorphism UI</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card settings-card">
+                            <div class="settings-header">
+                                <div class="settings-icon"
+                                    style="color: var(--danger-color); background: rgba(239, 68, 68, 0.1);">💾</div>
+                                <div class="settings-title">
+                                    <h3>Data Management</h3>
+                                    <p>Control your data</p>
+                                </div>
+                            </div>
+
+                            <div class="settings-actions">
+                                <div class="action-row">
+                                    <div class="action-info">
+                                        <h4>Export Data</h4>
+                                        <p>Download a JSON copy of your data</p>
+                                    </div>
+                                    <button id="export-data-btn" class="btn-primary"
+                                        style="padding: 0.5rem 1rem; font-size: 0.85rem;">Export</button>
+                                </div>
+
+                                <div class="action-row">
+                                    <div class="action-info">
+                                        <h4 style="color: var(--danger-color);">Reset All Data</h4>
+                                        <p>Permanently delete all subjects and tasks</p>
+                                    </div>
+                                    <button id="reset-data-btn" class="btn-primary"
+                                        style="background: var(--danger-color); padding: 0.5rem 1rem; font-size: 0.85rem;">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="scripts/app.js"></script>
+</body>
+
+</html>
