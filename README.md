@@ -2,6 +2,14 @@
 
 A modern, vanilla JavaScript web application to help students monitor their study schedules, manage subjects, and track tasks.
 
+## 🌐 Live Demo
+
+**[View Live Application](https://sumehar-studify.vercel.app/)**
+
+## 📖 Description
+
+Smart Study Planner is a comprehensive student productivity tool built with vanilla JavaScript, HTML5, and CSS3. It helps students organize their academic life by managing subjects, creating weekly schedules, tracking assignments, and visualizing progress through interactive analytics. All data is stored locally in the browser using LocalStorage, ensuring privacy and offline functionality.
+
 ## Features
 
 - **Dashboard**: Quick overview of total subjects, pending tasks, and today's schedule.
