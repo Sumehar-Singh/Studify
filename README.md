@@ -59,6 +59,4 @@ PepProject/
 3.  **Track**: Go to "Tasks" to add assignments and deadlines.
 4.  **Monitor**: Check "Dashboard" and "Analytics" for progress.
 
-## Screenshots
 
-*(Screenshots to be added after running the application)*
